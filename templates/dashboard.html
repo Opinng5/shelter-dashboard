@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Analisis Karyawan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&family=Lexend:wght@600;700&display=swap">
+<style>
+:root{--navy:#0B1F4D;--ink:#14234A;--txt:#1E2B4A;--muted:#5E6B85;--blue:#1E6FE0;--org:#F39C12;--green:#14965A;--red:#E0393E;--track:#EEF2F8;
+  --f:'Open Sans',system-ui,'Segoe UI',sans-serif;--h:'Plus Jakarta Sans','Open Sans',sans-serif;--brand:'Lexend','Open Sans',sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:#EEF6FD;overflow-x:hidden}
+body{font:500 14px/1.35 var(--f);color:var(--txt)}
+button,select,input{font:inherit;color:inherit}
+#wrap{position:relative;width:100%;overflow:hidden}
+#cv{position:absolute;left:0;top:0;width:1672px;height:941px;transform-origin:0 0;overflow:hidden;
+  background:linear-gradient(90deg,#E9F5FE 0%,#F1F8FE 40%,#F6FAFD 100%)}
+.abs{position:absolute}
+.num{font-variant-numeric:tabular-nums}
+/* hero */
+#hero{left:0;top:0;width:1672px;height:340px;background:url("{{HERO}}") 0 0/1672px 340px no-repeat}
+.logo{position:absolute;filter:drop-shadow(0 2px 4px rgba(11,31,77,.15))}
+#title{left:33px;top:147px;margin:0;font:800 52px/58px var(--h);letter-spacing:-1.6px;color:var(--navy);white-space:nowrap}
+#title .a{background:linear-gradient(180deg,#2C8BF0,#1659D0);-webkit-background-clip:text;background-clip:text;color:transparent}
+#title .b{background:linear-gradient(180deg,#F6B22A,#E58D05);-webkit-background-clip:text;background-clip:text;color:transparent}
+#subtitle{left:37px;top:270px;font:400 19px/24px var(--f);color:#1E2B4A;letter-spacing:-.1px;white-space:nowrap}
+.obar{position:absolute;height:4px;border-radius:3px;background:var(--org)}
+#chip{left:1386px;top:26px;width:258px;height:49px;background:#fff;border-radius:13px;box-shadow:0 6px 18px rgba(25,70,140,.12);display:flex;align-items:center;padding:0 14px 0 18px;gap:12px}
+#chip select{flex:1;border:0;background:transparent;font:500 17px var(--f);color:#14234A;cursor:pointer;appearance:none;-webkit-appearance:none;outline:none}
+#chip .chev{pointer-events:none}
+#klienChip{left:1386px;top:84px;max-width:258px;display:none;align-items:center;gap:8px;background:#0B1F4D;color:#fff;border:0;border-radius:999px;padding:6px 12px;font:600 12.5px var(--f);cursor:pointer;box-shadow:0 4px 10px rgba(11,31,77,.2)}
+#klienChip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#bIcon{left:1341px;top:122px;width:70px;height:70px;border-radius:15px;background:linear-gradient(150deg,#33AEFF 0%,#0F7AF0 55%,#0A5BD8 100%);box-shadow:0 8px 16px rgba(10,91,216,.3),inset 0 1px 0 rgba(255,255,255,.35);display:grid;place-items:center;color:#fff;font:700 10.5px var(--brand);letter-spacing:.3px}
+#bWord{left:1428px;top:131px;font:700 45px/50px var(--brand);letter-spacing:2.5px;color:#0D2259}
+#bCo{left:1430px;top:191px;font:400 17.5px/21px var(--f);color:#1E2B4A;letter-spacing:.4px}
+/* sidebar */
+#side{left:0;top:330px;width:240px;height:611px;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(250,252,255,.96));border-top-right-radius:22px}
+.nav{position:absolute;left:23px;width:200px;height:48px;border:0;background:transparent;border-radius:9px;display:flex;align-items:center;gap:0;padding:0;cursor:pointer;text-align:left;color:#1E2B4A;font:500 15.5px var(--f);white-space:nowrap}
+.nav svg{width:27px;height:27px;margin:0 18px 0 16px;color:#1B2D5B;flex:none}
+.nav:hover{background:rgba(30,111,224,.07)}
+.nav.on{background:linear-gradient(90deg,#3388E6 0%,#1D60CC 100%);color:#fff;font-weight:700;box-shadow:0 6px 14px rgba(29,96,204,.35)}
+.nav.on svg{color:#fff}
+#gedung{left:0;top:668px;width:248px;height:172px;background:url("{{GEDUNG_UPN}}") 40% 30%/cover no-repeat;
+  clip-path:path('M0 26 C70 6 160 2 248 14 L248 150 C170 134 80 142 0 166 Z');
+  -webkit-mask-image:linear-gradient(90deg,#000 70%,rgba(0,0,0,.35) 100%);mask-image:linear-gradient(90deg,#000 70%,rgba(0,0,0,.35) 100%)}
+#gedungArc{left:0;top:652px;width:248px;height:40px}
+#upn{left:37px;top:844px;font:800 17.5px/20.5px var(--f);color:#0B1F4D}
+/* cards */
+.card{position:absolute;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(31,77,140,.08),0 1px 2px rgba(31,77,140,.05)}
+.kl{position:absolute;font:600 16px var(--f);color:#1E2B4A;white-space:nowrap}
+.kv{position:absolute;font:700 33px/38px var(--f);color:#14234A;letter-spacing:-.3px}
+.kd{position:absolute;font:700 15px var(--f);white-space:nowrap}
+.kd.up{color:var(--green)}.kd.dn{color:var(--red)}
+.kic{position:absolute;width:80px;height:80px;border-radius:50%;display:grid;place-items:center}
+.kic svg{width:42px;height:42px}
+.spk{position:absolute;display:flex;align-items:flex-end;gap:4px;height:40px}
+.spk i{width:9px;border-radius:2px 2px 0 0;display:block}
+.hic{position:absolute;left:18px;top:11px;width:34px;height:34px;border-radius:8px;background:#E6F0FD;color:#1E6FE0;display:grid;place-items:center}
+.hic svg{width:20px;height:20px}
+.ht{position:absolute;top:13px;font:700 17px/26px var(--f);color:#14234A;white-space:nowrap}
+.sel{position:absolute;appearance:none;-webkit-appearance:none;border:1px solid #DCE4EF;border-radius:8px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='8'%3E%3Cpath d='M1 1l5.5 5.5L12 1' fill='none' stroke='%2314234A' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") right 14px center no-repeat;
+  padding:0 28px 0 12px;font:500 14.5px var(--f);color:#14234A;cursor:pointer;outline:none;text-overflow:ellipsis}
+.sel:focus-visible,.nav:focus-visible,button:focus-visible{outline:2px solid #1E6FE0;outline-offset:2px}
+/* svg text */
+.ax{font:500 12.5px var(--f);fill:#3D4A66}
+.xl{font:500 13.5px var(--f);fill:#1E2B4A}
+.vl{font:700 13px var(--f);fill:#14234A}
+.dl{font:700 21px var(--f);fill:#14234A}
+/* lists */
+.hl{position:absolute;left:0;right:0;height:22px;display:block}
+.hl>*{position:absolute;top:50%;transform:translateY(-50%)}
+.hl .ic{left:24px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
+.hl .ic svg{width:14px;height:14px}
+.hl .nm{left:69px;font:500 15px var(--f);color:#1E2B4A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hl .tr{height:14px;border-radius:7px;background:#EEF1F7;overflow:hidden}
+.hl .tr i{display:block;height:100%;border-radius:7px}
+.hl b{font:700 14.5px var(--f);color:#14234A}
+.hl .pc{font:500 14px var(--f);color:#3D4A66}
+.fr{position:absolute;left:0;right:0;height:18px}
+.fr>*{position:absolute;top:50%;transform:translateY(-50%)}
+.fr .nm{left:21px;width:124px;font:500 15px var(--f);color:#14234A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr .tr{left:150px;width:185px;height:11px;border-radius:6px;background:#F3F5F9;overflow:hidden}
+.fr .tr i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#F9A825,#FFC768)}
+.fr .pc{left:354px;font:500 14px var(--f);color:#3D4A66}
+.leg{position:absolute;display:flex;gap:20px;font:500 12px var(--f);color:#1E2B4A;white-space:nowrap}
+.leg span{display:flex;align-items:center;gap:6px}.leg i{width:10px;height:10px;border-radius:50%;display:block}
+.dleg{position:absolute}
+.dleg .dot{position:absolute;width:20px;height:20px;border-radius:50%}
+.dleg .t{position:absolute;font:400 17px/21px var(--f);color:#14234A;white-space:nowrap}
+.dleg .t b{font-weight:700}
+.view[hidden]{display:none!important}
+/* tables */
+.tb{position:absolute;left:18px;right:18px;top:60px;bottom:14px;overflow:auto}
+.pager{display:none!important}
+table{width:100%;border-collapse:collapse;font:500 13.5px var(--f)}
+th{background:#F3F7FC;text-align:left;font:700 12px var(--f);text-transform:uppercase;letter-spacing:.4px;color:#2B3A5E;padding:9px 10px;white-space:nowrap;position:sticky;top:0}
+td{padding:7.5px 10px;border-top:1px solid #EDF1F6;color:#1E2B4A;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+td.r,th.r{text-align:right}
+tbody tr:hover td{background:#F7FAFF}
+tr.click{cursor:pointer}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font:700 11px var(--f);letter-spacing:.2px}
+.p-ok{background:#DDF4E8;color:#0C7A3E}.p-out{background:#FFE3E3;color:#B42326}.p-off{background:#EEF2F8;color:#4A5A7A}.p-warn{background:#FFF0D6;color:#A35F00}
+.mini{display:inline-block;width:90px;height:8px;background:#EEF2F8;border-radius:4px;vertical-align:middle;margin-right:8px;overflow:hidden}
+.mini i{display:block;height:100%;background:linear-gradient(90deg,#F9A825,#F08A00);border-radius:4px}
+.inp{position:absolute;height:36px;border:1px solid #DCE4EF;border-radius:8px;padding:0 12px;font:500 14px var(--f);background:#fff;outline:none}
+.pager{position:absolute;right:18px;bottom:12px;display:flex;gap:10px;align-items:center;font:600 13px var(--f);color:var(--muted)}
+.btn{height:32px;border:1px solid #DCE4EF;background:#fff;border-radius:8px;padding:0 12px;font:700 13px var(--f);cursor:pointer;color:#14234A}
+.btn:disabled{opacity:.4;cursor:default}
+.cmp{position:absolute;left:0;right:0;height:40px}
+.cmp>*{position:absolute;top:50%;transform:translateY(-50%)}
+.cmp .lb{left:50%;transform:translate(-50%,-50%);width:250px;text-align:center;font:700 14px var(--f);color:#2B3A5E}
+.cmp .ta,.cmp .tb2{height:16px;width:420px;background:#EEF2F8;border-radius:8px;overflow:hidden;display:flex}
+.cmp .ta{left:150px;justify-content:flex-end}.cmp .tb2{right:150px}
+.cmp .ta i,.cmp .tb2 i{display:block;height:100%;border-radius:8px}
+.cmp b{font:800 17px var(--f);color:#14234A;width:110px}
+.cmp .va{left:30px;text-align:right}.cmp .vb{right:30px;text-align:left}
+.rc{position:absolute;padding:18px 20px;display:flex;flex-direction:column;gap:6px;border-top:4px solid var(--c)}
+.rc .k{font:700 11.5px var(--f);text-transform:uppercase;letter-spacing:.8px;color:var(--c)}
+.rc h3{margin:0;font:700 16.5px/1.3 var(--f);color:#14234A}
+.rc .big{font:800 30px/1.1 var(--f);color:var(--c)}
+.rc p{margin:0;font:500 13.5px/1.45 var(--f);color:#33405F}
+.rc .act{margin-top:auto;background:#F3F7FC;border-radius:8px;padding:8px 10px;font:600 13px/1.4 var(--f);color:#14234A}
+#foot{left:252px;top:925px;font:500 11px var(--f);color:#6A7690;white-space:nowrap}
+#tip{position:fixed;z-index:50;pointer-events:none;background:#0B1F4D;color:#fff;border-radius:8px;padding:7px 10px;font:600 12.5px/1.35 var(--f);box-shadow:0 8px 20px rgba(11,31,77,.25);max-width:280px;opacity:0;transition:opacity .1s}
+#tip.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <linearGradient id="gBlueV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3FA9F5"/><stop offset="1" stop-color="#1A6FE0"/></linearGradient>
+  <linearGradient id="gOrgV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB935"/><stop offset="1" stop-color="#F7A21B"/></linearGradient>
+  <linearGradient id="gTealV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2AD1B0"/><stop offset="1" stop-color="#11B193"/></linearGradient>
+  <linearGradient id="gDBlue" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1F6FE5"/><stop offset="1" stop-color="#3BA4F7"/></linearGradient>
+  <linearGradient id="gDPink" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F35C8A"/><stop offset="1" stop-color="#F2789F"/></linearGradient>
+  <linearGradient id="gDOrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#FDB44B"/></linearGradient>
+  <linearGradient id="gRingO" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC14D"/><stop offset="1" stop-color="#F29111"/></linearGradient>
+  <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#163E7A" flood-opacity=".14"/></filter>
+</defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.6 1.6 11.2a1.1 1.1 0 0 0 1.4 1.7l.9-.7v8.6c0 .7.5 1.2 1.2 1.2h4.7v-6.3h4.4V22h4.7c.7 0 1.2-.5 1.2-1.2v-8.6l.9.7a1.1 1.1 0 0 0 1.4-1.7Z"/></symbol>
+<symbol id="i-bars" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="10" width="4" height="11" rx=".8"/><rect x="10" y="3" width="4" height="18" rx=".8"/><rect x="17" y="13" width="4" height="8" rx=".8"/></g></symbol>
+<symbol id="i-people" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="7.2" r="3.6"/><path d="M5.3 19.8c0-3.8 3-6.4 6.7-6.4s6.7 2.6 6.7 6.4v.6H5.3Z"/><circle cx="4.9" cy="8.6" r="2.6"/><path d="M0 18.9c0-2.8 1.9-4.7 4.5-4.7 1.1 0 2 .3 2.7.8-1.3 1.4-2 3.2-2.1 5.2H0Z"/><circle cx="19.1" cy="8.6" r="2.6"/><path d="M24 18.9c0-2.8-1.9-4.7-4.5-4.7-1.1 0-2 .3-2.7.8 1.3 1.4 2 3.2 2.1 5.2H24Z"/></g></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="7.3" r="4.3"/><path d="M3.5 21.5c0-4.8 3.8-7.9 8.5-7.9s8.5 3.1 8.5 7.9Z"/></g></symbol>
+<symbol id="i-tie" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="6.6" r="4.3"/><path d="M2.8 22.5c0-5.2 4-8.3 9.2-8.3s9.2 3.1 9.2 8.3Z"/></g><path d="M10.6 14.4h2.8l-.6 1.5 1.2 4.8L12 22l-2-1.3 1.2-4.8Z" fill="#fff"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2 1.8 7.2 12 12.4l10.2-5.2Z"/><path d="m4.1 10.6 7.9 4 7.9-4 2.3 1.2L12 17 1.8 11.8Z" opacity=".88"/><path d="m4.1 15.2 7.9 4 7.9-4 2.3 1.2L12 21.6 1.8 16.4Z" opacity=".75"/></g></symbol>
+<symbol id="i-line" viewBox="0 0 24 24"><path d="M3 20 8 10.5l5 4.5 4-9L21 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><g fill="currentColor"><circle cx="3" cy="20" r="2"/><circle cx="8" cy="10.5" r="2"/><circle cx="13" cy="15" r="2"/><circle cx="17" cy="6" r="2"/><circle cx="21" cy="3" r="2"/></g></symbol>
+<symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.1"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 9.7c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3M3.5 14.4c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3"/></g></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1.8a7 7 0 0 0-4.3 12.6c.8.6 1.3 1.5 1.3 2.5V18h6v-1.1c0-1 .5-1.9 1.3-2.5A7 7 0 0 0 12 1.8Z"/><path d="M9.5 21.3h5M10 9.5l2 2 2-2M12 11.5V18"/></g></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.8" y="4.3" width="18.4" height="17" rx="2.4"/><path d="M2.8 9.3h18.4M7.8 2.3v4M16.2 2.3v4" stroke-linecap="round"/></g><g fill="currentColor"><rect x="6.3" y="12.2" width="2.8" height="2.4" rx=".5"/><rect x="10.6" y="12.2" width="2.8" height="2.4" rx=".5"/><rect x="14.9" y="12.2" width="2.8" height="2.4" rx=".5"/><rect x="6.3" y="16.2" width="2.8" height="2.4" rx=".5"/><rect x="10.6" y="16.2" width="2.8" height="2.4" rx=".5"/></g></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><path fill="currentColor" d="M13.7 1.5l.5 2.7 1.7.7 2.3-1.6 2.5 2.5-1.6 2.3.7 1.7 2.7.5v3.4l-2.7.5-.7 1.7 1.6 2.3-2.5 2.5-2.3-1.6-1.7.7-.5 2.7h-3.4l-.5-2.7-1.7-.7-2.3 1.6-2.5-2.5 1.6-2.3-.7-1.7-2.7-.5v-3.4l2.7-.5.7-1.7-1.6-2.3 2.5-2.5 2.3 1.6 1.7-.7.5-2.7ZM12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 1.8 2 7v2.2h20V7Z"/><rect x="4" y="10.6" width="2.8" height="7.4" rx=".4"/><rect x="8.7" y="10.6" width="2.8" height="7.4" rx=".4"/><rect x="13.3" y="10.6" width="2.8" height="7.4" rx=".4"/><rect x="17.9" y="10.6" width="2.8" height="7.4" rx=".4"/><rect x="2" y="19.2" width="20" height="2.8" rx=".5"/></g></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="12" width="4.2" height="9" rx=".8"/><rect x="9.9" y="7" width="4.2" height="14" rx=".8"/><rect x="16.8" y="3" width="4.2" height="18" rx=".8"/></g></symbol>
+<symbol id="i-grp" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="8.5" cy="8" r="3.4"/><path d="M2 20c0-3.8 2.9-6.4 6.5-6.4S15 16.2 15 20Z"/><circle cx="16.8" cy="7" r="2.8"/><path d="M16.2 12.4c3.3 0 5.8 2.3 5.8 5.8v.6h-5.4c-.2-2.6-1.2-4.7-2.9-6.1.8-.2 1.6-.3 2.5-.3Z"/></g></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.8a7.3 7.3 0 0 0-7.3 7.3C4.7 14.6 12 22.4 12 22.4s7.3-7.8 7.3-13.3A7.3 7.3 0 0 0 12 1.8Zm0 10a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.8 2.8 6.4v11.2L12 22.2l9.2-4.6V6.4Zm0 2.4 6.5 3.2L12 10.6 5.5 7.4ZM4.8 9l6.2 3.1v7.6L4.8 16.6Zm8.2 10.7v-7.6L19.2 9v7.6Z"/></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24"><path fill="currentColor" d="M1.5 4.5h12.5v10.5H1.5Zm13.5 3h4.3l3.2 4.3V15H15ZM5.8 20a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Zm12.4 0a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24"><path fill="currentColor" d="M2.5 2.5h9l10 10-9 9-10-10Zm4.7 3a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4Z"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path fill="currentColor" d="M21.5 6.5a5.7 5.7 0 0 1-7.7 5.3l-7.8 7.8a2.1 2.1 0 0 1-3-3l7.8-7.8A5.7 5.7 0 0 1 17.5 1L14 4.5l.5 3.5 3.5.5Z"/></symbol>
+<symbol id="i-dots" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="5" cy="12" r="2.3"/><circle cx="12" cy="12" r="2.3"/><circle cx="19" cy="12" r="2.3"/></g></symbol>
+<symbol id="i-cog" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm9.5 2.4v3.2l-2.4.6-.6 1.5 1.3 2.1-2.3 2.3-2.1-1.3-1.5.6-.6 2.4h-3.2l-.6-2.4-1.5-.6-2.1 1.3-2.3-2.3 1.3-2.1-.6-1.5-2.4-.6v-3.2l2.4-.6.6-1.5-1.3-2.1 2.3-2.3 2.1 1.3 1.5-.6.6-2.4h3.2l.6 2.4 1.5.6 2.1-1.3 2.3 2.3-1.3 2.1.6 1.5Z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-8.5-5.2-8.5-11.3A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.1C20.5 15.8 12 21 12 21Z"/></symbol>
+</svg>
+
+<div id="wrap"><div id="cv">
+  <!-- HERO -->
+  <div class="abs" id="hero" role="img" aria-label="Gedung SHELTER dan tim karyawan"></div>
+  <img class="logo" src="{{LOGO_TUTWURI}}" alt="Logo Tut Wuri Handayani" style="left:22px;top:48px;width:73px;height:73px;object-fit:contain">
+  <img class="logo" src="{{LOGO_UPN}}" alt="Logo UPN Veteran Jawa Timur" style="left:108px;top:46px;width:77px;height:76px;object-fit:contain">
+  <img class="logo" src="{{LOGO_BLU}}" alt="Logo BLU Speed" style="left:199px;top:41px;width:80px;height:80px;object-fit:contain">
+  <h1 class="abs" id="title">Dashboard<br><span class="a">Analisis</span> <span class="b">Karyawan</span></h1>
+  <div class="abs" id="subtitle">Data Karyawan PT Shelter Indonesia Gemilang</div>
+  <div class="obar" style="left:38px;top:307px;width:50px"></div>
+  <label class="abs" id="chip"><svg width="25" height="25" style="color:#1E2B4A;flex:none"><use href="#i-cal"/></svg>
+    <select id="perTop" aria-label="Periode tahun bergabung"></select>
+    <svg class="chev" width="14" height="9" viewBox="0 0 14 9"><path d="M1.5 1.5l5.5 5.5 5.5-5.5" fill="none" stroke="#14234A" stroke-width="2" stroke-linecap="round"/></svg></label>
+  <button class="abs" id="klienChip" title="Hapus filter klien"><span id="klienChipT"></span>✕</button>
+  <div class="abs" id="bIcon">SHELTER</div>
+  <div class="abs" id="bWord">SHELTER</div>
+  <div class="abs" id="bCo">PT SHELTER<br>INDONESIA GEMILANG</div>
+  <div class="obar" style="left:1431px;top:245px;width:50px"></div>
+
+  <!-- SIDEBAR -->
+  <div class="abs" id="side"></div>
+  <button class="nav on" data-v="beranda" style="top:348px"><svg><use href="#i-home"/></svg>Beranda</button>
+  <button class="nav" data-v="analisis" style="top:403px"><svg><use href="#i-bars"/></svg>Analisis Karyawan</button>
+  <button class="nav" data-v="klien" style="top:456px"><svg><use href="#i-people"/></svg>Penempatan Klien</button>
+  <button class="nav" data-v="banding" style="top:509px"><svg><use href="#i-line"/></svg>Perbandingan</button>
+  <button class="nav" data-v="data" style="top:562px"><svg><use href="#i-db"/></svg>Data Karyawan</button>
+  <button class="nav" data-v="reko" style="top:615px"><svg><use href="#i-bulb"/></svg>Rekomendasi</button>
+  <svg class="abs" id="gedungArc" viewBox="0 0 248 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 L0 30 C70 10 160 6 248 18 L248 40Z" fill="#DCEBFA" opacity=".7"/></svg>
+  <div class="abs" id="gedung" role="img" aria-label="Gedung UPN Veteran Jawa Timur"></div>
+  <div class="abs" id="upn">UPN<br>“VETERAN”<br>JAWA TIMUR</div>
+  <div class="obar" style="left:38px;top:912px;width:50px"></div>
+
+  <!-- KPI -->
+  <div class="card" style="left:249px;top:337px;width:299px;height:113px">
+    <div class="kic" style="left:13px;top:17px;background:#E3EFFD;color:#2B7BE9"><svg><use href="#i-people"/></svg></div>
+    <div class="kl" style="left:117px;top:17px">Total Karyawan</div>
+    <div class="kv num" id="kTot" style="left:116px;top:40px"></div>
+    <div class="kd" id="kTotD" style="left:117px;top:82px"></div>
+    <div class="spk" id="sTot" style="left:231px;top:58px"></div>
+  </div>
+  <div class="card" style="left:561px;top:337px;width:282px;height:113px;background:linear-gradient(135deg,#FFFBF4,#FFF6EA)" id="cRes">
+    <svg class="abs" style="left:17px;top:15px" width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="36" fill="#fff"/><circle cx="43" cy="43" r="36" fill="none" stroke="#2D7FEA" stroke-width="11"/><circle id="ringArc" cx="43" cy="43" r="36" fill="none" stroke="url(#gRingO)" stroke-width="11" stroke-dasharray="0 999" transform="rotate(-90 43 43)"/><text id="kResP" x="43" y="44" text-anchor="middle" dominant-baseline="middle" style="font:700 21px var(--f);fill:#14234A"></text></svg>
+    <div class="kl" style="left:129px;top:17px">Tingkat Resign</div>
+    <div class="kv num" id="kRes" style="left:128px;top:40px"></div>
+    <div class="kd dn" id="kResD" style="left:129px;top:82px"></div>
+    <svg class="abs" style="left:219px;top:66px" width="46" height="28" viewBox="0 0 46 28" aria-hidden="true"><path d="M2 25l11-9 7 5 17-15" fill="none" stroke="#F4A21C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 5h8v8" fill="none" stroke="#F4A21C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="card" style="left:856px;top:337px;width:281px;height:113px">
+    <div class="kic" style="left:20px;top:17px;background:#DDF4F0;color:#0E9C84"><svg><use href="#i-tie"/></svg></div>
+    <div class="kl" style="left:124px;top:17px">Karyawan Aktif</div>
+    <div class="kv num" id="kAkt" style="left:123px;top:40px"></div>
+    <div class="kd up" id="kAktD" style="left:124px;top:82px"></div>
+    <div class="spk" id="sAkt" style="left:216px;top:58px"></div>
+  </div>
+  <div class="card" style="left:1150px;top:337px;width:282px;height:113px;background:linear-gradient(135deg,#FFF8F8,#FFF1F1)">
+    <div class="kic" style="left:13px;top:17px;background:#FFE7DC;color:#F27A22"><svg><use href="#i-layers"/></svg></div>
+    <div class="kl" style="left:117px;top:17px">Karyawan Non-Aktif</div>
+    <div class="kv num" id="kNon" style="left:116px;top:40px"></div>
+    <div class="kd dn" id="kNonD" style="left:117px;top:82px"></div>
+    <div class="spk" id="sNon" style="left:215px;top:58px"></div>
+  </div>
+  <div class="card" style="left:1446px;top:337px;width:206px;height:113px">
+    <svg class="abs" style="left:19px;top:16px;color:#1E2B4A" width="25" height="25"><use href="#i-cal"/></svg>
+    <div class="kl" style="left:56px;top:18px;font-weight:500">Periode Analisis</div>
+    <select class="sel" id="perCard" style="left:17px;top:51px;width:174px;height:43px" aria-label="Periode analisis"></select>
+  </div>
+
+  <!-- ===== BERANDA ===== -->
+  <div class="view" id="v-beranda">
+    <div class="card" style="left:249px;top:463px;width:455px;height:225px">
+      <div class="hic"><svg><use href="#i-user"/></svg></div><div class="ht" style="left:66px">Karyawan Berdasarkan Jenis Kelamin</div>
+      <div id="dGender"></div>
+    </div>
+    <div class="card" style="left:718px;top:463px;width:511px;height:225px">
+      <div class="hic"><svg><use href="#i-grp"/></svg></div><div class="ht" style="left:70px" id="trendTitle">Tren Jumlah Karyawan</div>
+      <div class="leg" style="right:16px;top:19px;gap:14px"><span><i style="background:#2F86E8"></i>Karyawan Aktif</span><span><i style="background:#F7A21B"></i>Non-Aktif</span></div>
+      <svg class="abs" id="cTrend" style="left:0;top:50px" width="511" height="172"></svg>
+    </div>
+    <div class="card" style="left:1243px;top:463px;width:409px;height:225px">
+      <div class="hic"><svg><use href="#i-chart"/></svg></div><div class="ht" style="left:69px">Karyawan per Kelompok Usia</div>
+      <svg class="abs" id="cAge" style="left:0;top:50px" width="409" height="172"></svg>
+    </div>
+    <div class="card" style="left:249px;top:700px;width:503px;height:220px">
+      <div class="hic"><svg><use href="#i-gear"/></svg></div><div class="ht" style="left:69px">Karyawan per Posisi Kerja</div>
+      <div class="abs" id="lPos" style="left:0;right:0;top:40px;height:172px"></div>
+    </div>
+    <div class="card" style="left:765px;top:700px;width:424px;height:220px">
+      <div class="hic"><svg><use href="#i-bank"/></svg></div><div class="ht" style="left:66px">Tingkat Resign per Klien</div>
+      <div class="abs" id="lKlien" style="left:0;right:0;top:43px;height:170px"></div>
+    </div>
+    <div class="card" style="left:1202px;top:700px;width:450px;height:220px">
+      <div class="hic"><svg><use href="#i-chart"/></svg></div><div class="ht" style="left:62px">Perbandingan Status Karyawan</div>
+      <div id="dStatus"></div>
+    </div>
+  </div>
+
+  <!-- ===== ANALISIS ===== -->
+  <div class="view" id="v-analisis" hidden>
+    <div class="card" style="left:249px;top:463px;width:455px;height:225px">
+      <div class="hic"><svg><use href="#i-pin"/></svg></div><div class="ht" style="left:66px">Karyawan per Wilayah</div>
+      <div class="abs" id="aKota" style="left:0;right:0;top:44px;height:172px"></div>
+    </div>
+    <div class="card" style="left:718px;top:463px;width:511px;height:225px">
+      <div class="hic"><svg><use href="#i-grp"/></svg></div><div class="ht" style="left:70px">Karyawan Bergabung per Bulan</div>
+      <svg class="abs" id="aBulan" style="left:0;top:50px" width="511" height="172"></svg>
+    </div>
+    <div class="card" style="left:1243px;top:463px;width:409px;height:225px">
+      <div class="hic"><svg><use href="#i-chart"/></svg></div><div class="ht" style="left:69px">Masa Kerja (tahun)</div>
+      <svg class="abs" id="aMasa" style="left:0;top:50px" width="409" height="172"></svg>
+    </div>
+    <div class="card" style="left:249px;top:700px;width:503px;height:220px">
+      <div class="hic"><svg><use href="#i-layers"/></svg></div><div class="ht" style="left:69px">Rincian Status Karyawan</div>
+      <div class="abs" id="aStatus" style="left:0;right:0;top:40px;height:172px"></div>
+    </div>
+    <div class="card" style="left:765px;top:700px;width:424px;height:220px">
+      <div class="hic"><svg><use href="#i-cal"/></svg></div><div class="ht" style="left:66px">Sisa Kontrak Karyawan Aktif</div>
+      <div class="abs" id="aKontrak" style="left:0;right:0;top:48px;height:150px"></div>
+    </div>
+    <div class="card" style="left:1202px;top:700px;width:450px;height:220px">
+      <div class="hic"><svg><use href="#i-box"/></svg></div><div class="ht" style="left:62px">Jenis Kontrak</div>
+      <div id="aTipe"></div>
+    </div>
+  </div>
+
+  <!-- ===== KLIEN ===== -->
+  <div class="view" id="v-klien" hidden>
+    <div class="card" style="left:249px;top:463px;width:1403px;height:457px">
+      <div class="hic"><svg><use href="#i-people"/></svg></div><div class="ht" style="left:66px">Penempatan Klien <span id="klienSub" style="font-weight:500;font-size:13.5px;color:#5E6B85;margin-left:8px"></span></div>
+      <input class="inp" id="kSearch" type="search" placeholder="Cari klien…" aria-label="Cari klien" style="right:18px;top:10px;width:260px">
+      <div class="tb"><table><thead><tr><th>#</th><th>Klien</th><th class="r">Total</th><th class="r">Aktif</th><th class="r">Resign</th><th>Tingkat Resign</th><th class="r">Perempuan</th><th class="r">Rata² Usia</th><th></th></tr></thead><tbody id="kBody"></tbody></table></div>
+      <div class="pager"><span id="kInfo"></span><button class="btn" id="kPrev">‹ Sebelumnya</button><button class="btn" id="kNext">Berikutnya ›</button></div>
+    </div>
+  </div>
+
+  <!-- ===== PERBANDINGAN ===== -->
+  <div class="view" id="v-banding" hidden>
+    <div class="card" style="left:249px;top:463px;width:1403px;height:457px">
+      <div class="hic"><svg><use href="#i-line"/></svg></div><div class="ht" style="left:66px">Perbandingan Klien</div>
+      <select class="sel" id="cmpA" style="left:150px;top:58px;width:420px;height:40px;border-color:#9CC4F5" aria-label="Klien A"></select>
+      <select class="sel" id="cmpB" style="right:150px;top:58px;width:420px;height:40px;border-color:#FBD08A" aria-label="Klien B"></select>
+      <div class="abs" id="cmpBody" style="left:0;right:0;top:112px;bottom:16px"></div>
+    </div>
+  </div>
+
+  <!-- ===== DATA ===== -->
+  <div class="view" id="v-data" hidden>
+    <div class="card" style="left:249px;top:463px;width:1403px;height:457px">
+      <div class="hic"><svg><use href="#i-db"/></svg></div><div class="ht" style="left:66px">Data Karyawan <span id="dataSub" style="font-weight:500;font-size:13.5px;color:#5E6B85;margin-left:8px"></span></div>
+      <input class="inp" id="dSearch" type="search" placeholder="Cari nama, klien, posisi…" aria-label="Cari karyawan" style="right:220px;top:10px;width:280px">
+      <select class="sel" id="dStat" style="right:18px;top:10px;width:190px;height:36px;font-size:14px" aria-label="Filter status"></select>
+      <div class="tb"><table><thead><tr><th>No</th><th>Nama Lengkap</th><th>Klien</th><th>Posisi</th><th>Wilayah</th><th>Status</th><th>Tgl Gabung</th><th class="r">Usia</th></tr></thead><tbody id="dBody"></tbody></table></div>
+      <div class="pager"><span id="pgInfo"></span><button class="btn" id="pgPrev">‹ Sebelumnya</button><button class="btn" id="pgNext">Berikutnya ›</button></div>
+    </div>
+  </div>
+
+  <!-- ===== REKOMENDASI ===== -->
+  <div class="view" id="v-reko" hidden><div id="recoBody"></div></div>
+
+  <div class="abs" id="foot"></div>
+</div></div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D=__DATA__, M=__META__;
+const TODAY=new Date(M.today+"T00:00:00");
+const R=D.r.map(x=>({n:x[0],k:x[1],w:x[2],p:x[3],s:x[4],doj:x[5],dt:new Date(x[5]+"T00:00:00"),y:+x[5].slice(0,4),m:+x[5].slice(5,7),g:x[6],a:x[7],t:x[8],mk:x[9],kf:x[10],pr:x[11],no:x[12]}));
+const S_AKTIF=D.s.indexOf("AKTIF"),S_RES=D.s.indexOf("RESIGN");
+const $=id=>document.getElementById(id);
+const fmt=n=>Math.round(n).toLocaleString("en-US");
+const pc=(a,b,d=0)=>b?(a/b*100).toFixed(d).replace(".",","):"0";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const short=k=>k.replace(/^(PT|CV)\.?\s+/i,"").toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
+const NS="http://www.w3.org/2000/svg";
+
+/* ---------- skala kanvas ke lebar layar ---------- */
+function fit(){const w=document.documentElement.clientWidth||innerWidth;const s=Math.max(.45,w/1672);
+  $("cv").style.transform=`scale(${s})`;const h=Math.ceil(941*s);$("wrap").style.height=h+"px";$("wrap").style.width=Math.max(w,1672*s)+"px";
+  try{if(window.frameElement){window.frameElement.style.height=h+"px";window.frameElement.height=h;}}catch(e){}}
+addEventListener("resize",fit);fit();
+
+/* ---------- state (bertahan saat data diperbarui) ---------- */
+const store={get(k,d){try{const v=sessionStorage.getItem("shelter_"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{sessionStorage.setItem("shelter_"+k,JSON.stringify(v))}catch(e){}}};
+const minY=Math.min(...R.map(r=>r.y)),maxY=Math.max(...R.map(r=>r.y));
+const PER=[["all",`Tahun ${minY} - ${maxY}`,minY,maxY]];
+if(maxY-3>minY)PER.push([String(maxY-3),`Tahun ${maxY-3} - ${maxY}`,maxY-3,maxY]);
+if(maxY-1>minY)PER.push([String(maxY-1),`Tahun ${maxY-1} - ${maxY}`,maxY-1,maxY]);
+for(let y=maxY;y>=Math.max(minY,maxY-5);y--)PER.push(["y"+y,"Tahun "+y,y,y]);
+const st={per:store.get("per","all"),klien:store.get("klien",-1),view:store.get("view","beranda")};
+if(!PER.find(p=>p[0]===st.per))st.per="all";if(st.klien>=D.k.length)st.klien=-1;
+for(const id of ["perTop","perCard"])$(id).innerHTML=PER.map(p=>`<option value="${p[0]}">${p[1]}</option>`).join("");
+const per=()=>PER.find(p=>p[0]===st.per);
+const inPer=r=>{const p=per();return r.y>=p[2]&&r.y<=p[3]};
+const filtered=(ignoreK)=>R.filter(r=>inPer(r)&&(ignoreK||st.klien<0||r.k===st.klien));
+
+/* ---------- komponen grafik ---------- */
+function niceMax(v){if(v<=0)return 4;const e=Math.pow(10,Math.floor(Math.log10(v)));for(const m of [1,1.2,1.5,2,2.5,3,4,5,6,8,10]){if(m*e>=v)return m*e}return 10*e}
+function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);for(const k in attrs)n.setAttribute(k,attrs[k]);if(parent)parent.appendChild(n);return n}
+/* kolom: box = {x0,x1,y0,y1} di dalam svg; series=[{name,v,fill}] */
+function columns(svg,box,labels,series,opt={}){
+  svg.innerHTML="";const W=+svg.getAttribute("width");
+  const maxV=Math.max(1,...series.flatMap(s=>s.v));const max=niceMax(maxV*1.08);const ticks=opt.ticks||5;
+  for(let i=0;i<=ticks;i++){const v=max*i/ticks,y=box.y1-(box.y1-box.y0)*i/ticks;
+    if(i>0)el("line",{x1:box.x0,x2:box.x1,y1:y,y2:y,stroke:"#E9EEF5","stroke-width":1},svg);
+    const t=el("text",{x:box.x0-8,y:y+4,"text-anchor":"end",class:"ax"},svg);t.textContent=fmt(v);}
+  el("line",{x1:box.x0,x2:box.x0,y1:box.y0-4,y2:box.y1,stroke:"#C9D3E0"},svg);el("line",{x1:box.x0,x2:box.x1,y1:box.y1,y2:box.y1,stroke:"#C9D3E0"},svg);
+  const n=labels.length,gw=(box.x1-box.x0)/n,ns=series.length;
+  const bw=Math.min(opt.bw||44,(gw-12)/ns-(ns>1?4:0)),gap=ns>1?Math.min(10,bw*.25):0;
+  labels.forEach((lb,i)=>{const cx=box.x0+gw*(i+.5);const tw=ns*bw+(ns-1)*gap;
+    series.forEach((s,j)=>{const v=s.v[i],h=(box.y1-box.y0)*v/max,x=cx-tw/2+j*(bw+gap),y=box.y1-h;
+      const r=el("path",{d:`M${x},${box.y1}V${y+Math.min(5,h)}q0,-${Math.min(5,h)} ${Math.min(5,h)},-${Math.min(5,h)}h${bw-2*Math.min(5,h)}q${Math.min(5,h)},0 ${Math.min(5,h)},${Math.min(5,h)}V${box.y1}Z`,fill:s.fill},svg);
+      r.dataset.tip=`${lb} · ${s.name}: <b>${fmt(v)}</b>${s.tip?s.tip(i):""}`;
+      if(!opt.noLabel&&v>0){const t=el("text",{x:x+bw/2,y:y-5,"text-anchor":"middle",class:"vl"},svg);t.textContent=fmt(v);}});
+    const t=el("text",{x:cx,y:box.y1+19,"text-anchor":"middle",class:"xl"},svg);t.textContent=lb;});
+}
+/* donut di dalam kartu: posisi absolut sesuai desain */
+function donut(host,cfg){
+  const {cx,cy,ro,ri,segs,center,sub,leg}=cfg;const tot=segs.reduce((a,s)=>a+s.v,0)||1;
+  const W=cx*2+120;let h=`<svg class="abs" style="left:0;top:0;overflow:visible" width="${cfg.w}" height="${cfg.h}">`;
+  const r=(ro+ri)/2,sw=ro-ri,C=2*Math.PI*r;let off=0;
+  (cfg.draw?cfg.draw.map(i=>segs[i]):segs).forEach(s=>{const len=s.v/tot*C;h+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.fill}" stroke-width="${sw}" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})" data-tip="${esc(s.name)}: <b>${fmt(s.v)}</b> (${pc(s.v,tot,1)}%)"/>`;
+    const mid=(off+len/2)/C*2*Math.PI-Math.PI/2,lr=ro+cfg.lab;const lx=cx+lr*Math.cos(mid),ly=cy+lr*Math.sin(mid);
+    if(s.v/tot>.03)h+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" class="dl" style="fill:${s.lc||"#14234A"}">${pc(s.v,tot)}%</text>`;off+=len;});
+  h+=`<circle cx="${cx}" cy="${cy}" r="${ri+1}" fill="#fff" filter="url(#sh)"/>`;
+  h+=`<text x="${cx}" y="${cy-(sub?7:0)}" text-anchor="middle" dominant-baseline="middle" style="font:700 ${cfg.cfs||25}px var(--f);fill:#14234A">${fmt(center)}</text>`;
+  if(sub)h+=`<text x="${cx}" y="${cy+17}" text-anchor="middle" style="font:500 13px var(--f);fill:#1E2B4A">${sub}</text>`;
+  h+=`</svg><div class="dleg">`;
+  segs.forEach((s,i)=>{const L=leg[i];h+=`<span class="dot" style="left:${L.x}px;top:${L.y}px;background:${s.solid}"></span>`;
+    h+=`<div class="t" style="left:${L.x+27}px;top:${L.y-10}px">${L.lines(s,tot)}</div>`;});
+  host.innerHTML=h+"</div>";
+}
+const HC=[["#2F86E8","#E3F0FD","linear-gradient(90deg,#2A7CE6,#3E9BF2)"],["#2E7BE6","#E3EEFD","linear-gradient(90deg,#2F72E3,#4596F0)"],["#3D63DE","#E5E9FC","linear-gradient(90deg,#3E68E0,#5E86EC)"],["#7A5CE6","#ECE8FD","linear-gradient(90deg,#6A6BE8,#8B8BF0)"],["#C24FBF","#F8E7F7","linear-gradient(90deg,#9A7CEE,#B39AF3)"],["#1AA0D8","#E0F3FB","linear-gradient(90deg,#AE91F2,#C3AEF6)"],["#9F8BDD","#F0ECFB","linear-gradient(90deg,#C0AEF5,#D3C6F8)"],["#8C82D8","#EFEDFB","linear-gradient(90deg,#CDBFF7,#DDD3FA)"]];
+/* daftar batang horizontal gaya "Faktor Penyebab" */
+function hlist(host,items,total,opt={}){
+  const n=items.length,step=opt.step||24.7,max=Math.max(1,...items.map(i=>i.v)),tx=opt.tx||210,tw=opt.tw||180,vx=opt.vx||412,px=opt.px||459;
+  host.innerHTML=items.map((it,i)=>{const c=opt.colors?opt.colors(i):HC[Math.min(i,HC.length-1)];
+    return `<div class="hl" style="top:${i*step}px" data-tip="${esc(it.full||it.name)}: <b>${fmt(it.v)}</b> (${pc(it.v,total,1)}%)"><span class="ic" style="background:${c[1]};color:${c[0]};left:${opt.icx||24}px"><svg><use href="#${it.ic||"i-dots"}"/></svg></span><span class="nm" style="left:${opt.nx||69}px;width:${tx-(opt.nx||69)-10}px">${esc(it.name)}</span><span class="tr" style="left:${tx}px;width:${tw}px"><i style="width:${it.v/max*100}%;background:${c[2]}"></i></span><b class="num" style="left:${vx}px">${fmt(it.v)}</b><span class="pc num" style="left:${px}px">${pc(it.v,total)}%</span></div>`}).join("");
+}
+function sparks(host,vals,cols){const m=Math.max(1,...vals);host.innerHTML=vals.map((v,i)=>`<i style="height:${Math.max(14,v/m*100)}%;background:${cols[i]||cols[cols.length-1]}"></i>`).join("");}
+const countBy=(rows,f)=>{const m=new Map();rows.forEach(r=>{const k=f(r);m.set(k,(m.get(k)||0)+1)});return m};
+
+/* ---------- pengelompokan tren ---------- */
+const MN=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+function buckets(){const p=per();
+  if(p[2]===p[3])return {labels:MN,key:r=>r.m-1,title:`Tren per Bulan ${p[2]}`};
+  const first=Math.max(p[2],p[3]-5);const ys=[];if(p[2]<first)ys.push("≤"+(first-1));for(let y=first;y<=p[3];y++)ys.push(String(y));
+  return {labels:ys,key:r=>r.y<first?0:ys.indexOf(String(r.y)),title:"Tren Jumlah Karyawan"};}
+function last5(rows,pred){const b=buckets();const a=b.labels.map(()=>0);rows.forEach(r=>{if(pred(r)){const i=b.key(r);if(i>=0)a[i]++}});const s=a.slice(-4);while(s.length<4)s.unshift(0);return s;}
+
+/* ---------- KPI ---------- */
+function renderKPI(rows){
+  const tot=rows.length,akt=rows.filter(r=>r.s===S_AKTIF).length,res=rows.filter(r=>r.s===S_RES).length,non=tot-akt;
+  $("kTot").textContent=fmt(tot);$("kAkt").textContent=fmt(akt);$("kNon").textContent=fmt(non);$("kRes").textContent=fmt(res);
+  const rp=tot?res/tot:0;$("kResP").textContent=Math.round(rp*100)+"%";const C=2*Math.PI*36;$("ringArc").setAttribute("stroke-dasharray",`${rp*C} ${C}`);
+  const a1=new Date(TODAY);a1.setFullYear(a1.getFullYear()-1);const a2=new Date(a1);a2.setFullYear(a2.getFullYear()-1);
+  const base=R.filter(r=>st.klien<0||r.k===st.klien);const last=base.filter(r=>r.dt>a1&&r.dt<=TODAY).length,prev=base.filter(r=>r.dt>a2&&r.dt<=a1).length;
+  const g=prev?(last-prev)/prev*100:0;
+  $("kTotD").className="kd "+(g>=0?"up":"dn");$("kTotD").innerHTML=`${g>=0?"▲":"▼"} ${Math.abs(g).toFixed(0)}%`;
+  $("kTotD").dataset.tip=`Rekrutmen 12 bulan terakhir: <b>${fmt(last)}</b><br>12 bulan sebelumnya: <b>${fmt(prev)}</b>`;
+  $("kResD").innerHTML=`▲ ${pc(res,tot)}%`;$("kResD").dataset.tip=`Resign: <b>${fmt(res)}</b> dari ${fmt(tot)} karyawan`;
+  $("kAktD").innerHTML=`▲ ${pc(akt,tot)}%`;$("kAktD").dataset.tip=`Aktif: <b>${pc(akt,tot,1)}%</b> dari total karyawan`;
+  $("kNonD").innerHTML=`▲ ${pc(non,tot)}%`;$("kNonD").dataset.tip=`Non-aktif: <b>${pc(non,tot,1)}%</b> dari total karyawan`;
+  sparks($("sTot"),last5(rows,()=>true),["#BFDDFB","#8EC2F7","#5EA6F2","#2F86E8"]);
+  sparks($("sAkt"),last5(rows,r=>r.s===S_AKTIF),["#BDEDE3","#8BDFCF","#4FCFB6","#16B597"]);
+  sparks($("sNon"),last5(rows,r=>r.s!==S_AKTIF),["#FFD0D0","#FFA8A8","#FA7C7C","#F04E4E"]);
+  $("cRes").dataset.tip=`Tingkat resign: <b>${pc(res,tot,1)}%</b>`;
+}
+
+/* ---------- BERANDA ---------- */
+const POS_IC={"Produksi":"i-gear","Sales / SPG / BA":"i-tag","Gudang / Logistik":"i-box","Operator mesin":"i-cog","Helper":"i-user","Admin / Office":"i-db","Teknisi / Maintenance":"i-wrench","Driver / Transport":"i-truck","Packing":"i-box","Quality (QC / QA)":"i-heart","Lainnya":"i-dots"};
+function renderBeranda(rows){
+  const tot=rows.length,L=rows.filter(r=>r.g===0).length;
+  const line3=(s,t)=>`${esc(s.name)}<br><b class="num">${fmt(s.v)}</b><br>(${pc(s.v,t)}%)`;
+  donut($("dGender"),{w:455,h:225,cx:151,cy:132,ro:88,ri:52,lab:24,segs:[{name:"Laki-laki",v:L,fill:"url(#gDBlue)",solid:"#2F86E8"},{name:"Perempuan",v:tot-L,fill:"url(#gDPink)",solid:"#F2557F"}],draw:[1,0],center:tot,sub:"Total Karyawan",
+    leg:[{x:316,y:68,lines:line3},{x:316,y:146,lines:line3}]});
+  const b=buckets();$("trendTitle").textContent=b.title;const a=b.labels.map(()=>0),n=b.labels.map(()=>0);
+  rows.forEach(r=>{const i=b.key(r);if(i<0)return;(r.s===S_AKTIF?a:n)[i]++});
+  columns($("cTrend"),{x0:62,x1:497,y0:15,y1:142},b.labels,[{name:"Aktif",v:a,fill:"url(#gBlueV)"},{name:"Non-Aktif",v:n,fill:"url(#gOrgV)"}],{bw:40,noLabel:b.labels.length>8});
+  const AG=["< 25","25 - 29","30 - 34","35 - 39","≥ 40"],ag=[0,0,0,0,0];rows.forEach(r=>ag[r.a<25?0:r.a<30?1:r.a<35?2:r.a<40?3:4]++);
+  columns($("cAge"),{x0:47,x1:397,y0:19,y1:142},AG,[{name:"Karyawan",v:ag,fill:"url(#gTealV)",tip:i=>` (${pc(ag[i],tot,1)}%)`}],{bw:46,ticks:4});
+  const pm=[...countBy(rows,r=>D.p[r.p]).entries()].filter(e=>e[0]!=="Lainnya").sort((x,y)=>y[1]-x[1]).slice(0,6);
+  const rest=tot-pm.reduce((s,e)=>s+e[1],0);
+  hlist($("lPos"),[...pm.map(e=>({name:e[0],v:e[1],ic:POS_IC[e[0]]||"i-user"})),{name:"Lainnya",v:rest,ic:"i-dots"}],tot);
+  const km=new Map();rows.forEach(r=>{const o=km.get(r.k)||{t:0,r:0};o.t++;if(r.s===S_RES)o.r++;km.set(r.k,o)});
+  const ks=[...km.entries()].sort((x,y)=>y[1].t-x[1].t);const top=ks.slice(0,8);const rk=ks.slice(8).reduce((o,e)=>({t:o.t+e[1].t,r:o.r+e[1].r}),{t:0,r:0});
+  const it=top.map(e=>({name:short(D.k[e[0]]),full:D.k[e[0]],t:e[1].t,r:e[1].r,v:e[1].r/e[1].t})).sort((x,y)=>y.v-x.v);
+  if(rk.t)it.push({name:"Lainnya",full:`${ks.length-8} klien lainnya`,t:rk.t,r:rk.r,v:rk.r/rk.t});
+  const mx=Math.max(.0001,...it.map(i=>i.v));
+  $("lKlien").innerHTML=it.map((x,i)=>`<div class="fr" style="top:${i*18.9}px" data-tip="${esc(x.full)}<br>Resign <b>${fmt(x.r)}</b> dari ${fmt(x.t)} karyawan (${pc(x.r,x.t,1)}%)"><span class="nm">${esc(x.name)}</span><span class="tr"><i style="width:${x.v/mx*100}%;opacity:${Math.max(.45,1-.08*i)}"></i></span><span class="pc num">${pc(x.r,x.t)}%</span></div>`).join("");
+  const akt=rows.filter(r=>r.s===S_AKTIF).length;
+  const line2=(s,t)=>`${esc(s.name)}<br><b class="num">${fmt(s.v)}</b> <span style="color:#33405F">(${pc(s.v,t)}%)</span>`;
+  donut($("dStatus"),{w:450,h:220,cx:146,cy:126,ro:80,ri:50,lab:26,segs:[{name:"Aktif",v:akt,fill:"url(#gDBlue)",solid:"#2F86E8"},{name:"Non-Aktif",v:tot-akt,fill:"url(#gDOrg)",solid:"#F7A21B",lc:"#F39C12"}],center:tot,sub:"Total",cfs:23,
+    leg:[{x:290,y:72,lines:line2},{x:290,y:138,lines:line2}]});
+}
+
+/* ---------- ANALISIS ---------- */
+function renderAnalisis(rows){
+  const tot=rows.length;
+  const km=[...countBy(rows,r=>r.w).entries()].sort((a,b)=>b[1]-a[1]);const t6=km.slice(0,6);
+  hlist($("aKota"),[...t6.map(e=>({name:D.w[e[0]],v:e[1],ic:"i-pin"})),{name:"Lainnya",v:tot-t6.reduce((s,e)=>s+e[1],0),ic:"i-dots"}],tot,{step:24,tx:190,tw:140,vx:352,px:404});
+  const ms=[],lab=[];for(let i=11;i>=0;i--){const d=new Date(TODAY.getFullYear(),TODAY.getMonth()-i,1);ms.push([d.getFullYear(),d.getMonth()+1]);lab.push(MN[d.getMonth()]);}
+  const base=R.filter(r=>st.klien<0||r.k===st.klien);const mv=ms.map(([y,m])=>base.filter(r=>r.y===y&&r.m===m).length);
+  columns($("aBulan"),{x0:52,x1:497,y0:15,y1:142},lab,[{name:"Bergabung",v:mv,fill:"url(#gTealV)"}],{bw:24});
+  const ML=["< 1","1 - 2","2 - 3","3 - 5","≥ 5"],mk=[0,0,0,0,0];rows.forEach(r=>mk[r.mk<1?0:r.mk<2?1:r.mk<3?2:r.mk<5?3:4]++);
+  columns($("aMasa"),{x0:47,x1:397,y0:19,y1:142},ML,[{name:"Karyawan",v:mk,fill:"url(#gBlueV)",tip:i=>` (${pc(mk[i],tot,1)}%)`}],{bw:46,ticks:4});
+  const sm=[...countBy(rows,r=>D.s[r.s]).entries()].sort((a,b)=>b[1]-a[1]);const s6=sm.slice(0,6);
+  const tc=s=>s==="AKTIF"?["#11A88F","#DDF6F1","linear-gradient(90deg,#16B597,#3BDABF)"]:s==="RESIGN"?["#E5383B","#FFE5E5","linear-gradient(90deg,#F05A5D,#FF8A8C)"]:["#F07B24","#FFEBDD","linear-gradient(90deg,#F59A0E,#FFC24D)"];
+  hlist($("aStatus"),[...s6.map(e=>({name:e[0].charAt(0)+e[0].slice(1).toLowerCase(),v:e[1],ic:e[0]==="AKTIF"?"i-user":"i-layers"})),{name:"Lainnya",v:tot-s6.reduce((s,e)=>s+e[1],0),ic:"i-dots"}],tot,{colors:i=>i<s6.length?tc(s6[i][0]):tc("x")});
+  const ak=rows.filter(r=>r.s===S_AKTIF),KL=["Lewat tanggal END","0 - 30 hari","31 - 60 hari","61 - 90 hari","> 90 hari"],kc=[0,0,0,0,0];ak.forEach(r=>{if(r.kf)kc[r.kf-1]++});
+  hlist($("aKontrak"),KL.map((n,i)=>({name:n,v:kc[i],ic:"i-cal"})),ak.length,{step:28,nx:60,icx:20,tx:190,tw:130,vx:332,px:378,colors:i=>i===0?["#E5383B","#FFE5E5","linear-gradient(90deg,#F05A5D,#FF8A8C)"]:i<4?["#F07B24","#FFEBDD","linear-gradient(90deg,#F59A0E,#FFC24D)"]:["#11A88F","#DDF6F1","linear-gradient(90deg,#16B597,#3BDABF)"]});
+  const tp=countBy(rows,r=>D.t[r.t]);const tps=[...tp.entries()].sort((a,b)=>b[1]-a[1]);const fills=[["url(#gDBlue)","#2F86E8"],["url(#gDOrg)","#F7A21B"],["url(#gDPink)","#F2557F"]];
+  const line2=(s,t)=>`${esc(s.name)}<br><b class="num">${fmt(s.v)}</b> <span style="color:#33405F">(${pc(s.v,t)}%)</span>`;
+  donut($("aTipe"),{w:450,h:220,cx:146,cy:134,ro:72,ri:46,lab:18,segs:tps.slice(0,3).map((e,i)=>({name:e[0],v:e[1],fill:fills[i][0],solid:fills[i][1]})),center:tot,sub:"Kontrak",cfs:23,
+    leg:tps.slice(0,3).map((e,i)=>({x:290,y:62+i*62,lines:line2}))});
+}
+
+/* ---------- KLIEN ---------- */
+let kPage=0;const KPS=1e9;
+function klienStats(rows){const m=new Map();rows.forEach(r=>{const o=m.get(r.k)||{k:r.k,t:0,a:0,r:0,f:0,age:0};o.t++;if(r.s===S_AKTIF)o.a++;if(r.s===S_RES)o.r++;if(r.g)o.f++;o.age+=r.a;m.set(r.k,o)});return [...m.values()].sort((a,b)=>b.t-a.t);}
+function renderKlien(){
+  const rows=filtered(true),q=$("kSearch").value.trim().toLowerCase();const all=klienStats(rows);const ks=all.map((k,i)=>({...k,rank:i+1})).filter(k=>!q||D.k[k.k].toLowerCase().includes(q));
+  const pages=Math.max(1,Math.ceil(ks.length/KPS));kPage=Math.min(kPage,pages-1);
+  $("klienSub").textContent=`Menampilkan semua ${all.length} klien · ${fmt(rows.length)} karyawan · klik baris untuk memfilter dashboard`;
+  const mx=Math.max(.0001,...all.map(k=>k.r/k.t));
+  $("kBody").innerHTML=ks.slice(kPage*KPS,kPage*KPS+KPS).map(k=>`<tr class="click" data-k="${k.k}"><td class="num">${k.rank}</td><td title="${esc(D.k[k.k])}"><b>${esc(short(D.k[k.k]))}</b></td><td class="r num">${fmt(k.t)}</td><td class="r num">${fmt(k.a)}</td><td class="r num">${fmt(k.r)}</td><td><span class="mini"><i style="width:${k.r/k.t/mx*100}%"></i></span><span class="num">${pc(k.r,k.t,1)}%</span></td><td class="r num">${pc(k.f,k.t)}%</td><td class="r num">${(k.age/k.t).toFixed(1).replace(".",",")}</td><td>${st.klien===k.k?'<span class="pill p-ok">DIFILTER</span>':""}</td></tr>`).join("")||`<tr><td colspan="9" style="color:#5E6B85">Klien tidak ditemukan.</td></tr>`;
+  $("kInfo").textContent=`Halaman ${kPage+1} dari ${pages}`;$("kPrev").disabled=kPage===0;$("kNext").disabled=kPage>=pages-1;
+  document.querySelectorAll("#kBody tr.click").forEach(tr=>tr.onclick=()=>{const k=+tr.dataset.k;setKlien(st.klien===k?-1:k);});
+}
+
+/* ---------- PERBANDINGAN ---------- */
+function fillCmp(){const ks=klienStats(R);const o=ks.map(k=>`<option value="${k.k}">${esc(short(D.k[k.k]))} (${fmt(k.t)})</option>`).join("");$("cmpA").innerHTML=o;$("cmpB").innerHTML=o;
+  $("cmpA").value=store.get("cmpA",ks[0]?.k??0);$("cmpB").value=store.get("cmpB",ks[1]?.k??0);if($("cmpA").selectedIndex<0)$("cmpA").selectedIndex=0;if($("cmpB").selectedIndex<0)$("cmpB").selectedIndex=Math.min(1,ks.length-1);}
+function renderCmp(){
+  store.set("cmpA",+$("cmpA").value);store.set("cmpB",+$("cmpB").value);
+  const all=filtered(true),A=all.filter(r=>r.k===+$("cmpA").value),B=all.filter(r=>r.k===+$("cmpB").value);
+  const m=rs=>{const t=rs.length||1;return {t:rs.length,a:rs.filter(r=>r.s===S_AKTIF).length,rr:rs.filter(r=>r.s===S_RES).length/t*100,f:rs.filter(r=>r.g).length/t*100,y:rs.filter(r=>r.a<30).length/t*100,age:rs.reduce((s,r)=>s+r.a,0)/t,mk:rs.reduce((s,r)=>s+r.mk,0)/t}};
+  const a=m(A),b=m(B),d1=v=>v.toFixed(1).replace(".",",");
+  const def=[["Total karyawan","t",fmt],["Karyawan aktif","a",fmt],["Tingkat resign","rr",v=>d1(v)+"%"],["Karyawan perempuan","f",v=>d1(v)+"%"],["Usia di bawah 30 tahun","y",v=>d1(v)+"%"],["Rata-rata usia (tahun)","age",d1],["Rata-rata masa kerja (tahun)","mk",d1]];
+  $("cmpBody").innerHTML=def.map(([l,k,f],i)=>{const mx=Math.max(a[k],b[k],.0001);return `<div class="cmp" style="top:${i*44}px"><b class="num va">${f(a[k])}</b><span class="ta"><i style="width:${a[k]/mx*100}%;background:linear-gradient(270deg,#3FA9F5,#1A6FE0)"></i></span><span class="lb">${l}</span><span class="tb2"><i style="width:${b[k]/mx*100}%;background:linear-gradient(90deg,#F7A21B,#FFC768)"></i></span><b class="num vb">${f(b[k])}</b></div>`}).join("");
+}
+
+/* ---------- DATA ---------- */
+let page=0;const PS=1e9;
+$("dStat").innerHTML=`<option value="-1">Semua status</option>`+D.s.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join("");
+function pill(s){const n=D.s[s];const c=n==="AKTIF"?"p-ok":n==="RESIGN"?"p-out":/PUTUS|END|PHK|PENGURANGAN|MANGKIR|BLACKLIST|EFISIENSI|INDISIPLINER/.test(n)?"p-warn":"p-off";return `<span class="pill ${c}">${esc(n)}</span>`}
+function renderData(){
+  const q=$("dSearch").value.trim().toLowerCase(),sf=+$("dStat").value;
+  const rows=filtered(false).filter(r=>(sf<0||r.s===sf)&&(!q||r.n.toLowerCase().includes(q)||D.k[r.k].toLowerCase().includes(q)||D.pr[r.pr].toLowerCase().includes(q))).sort((a,b)=>b.dt-a.dt);
+  const pages=Math.max(1,Math.ceil(rows.length/PS));page=Math.min(page,pages-1);
+  $("dataSub").textContent=`Menampilkan semua ${fmt(rows.length)} karyawan · gulir tabel untuk melihat semuanya`;
+  $("dBody").innerHTML=rows.slice(page*PS,page*PS+PS).map(r=>`<tr><td class="num">${r.no}</td><td><b>${esc(r.n)}</b></td><td title="${esc(D.k[r.k])}">${esc(short(D.k[r.k]))}</td><td>${esc(D.pr[r.pr])}</td><td>${esc(D.w[r.w])}</td><td>${pill(r.s)}</td><td class="num">${r.doj.split("-").reverse().join("/")}</td><td class="r num">${Math.floor(r.a)}</td></tr>`).join("")||`<tr><td colspan="8" style="color:#5E6B85">Tidak ada karyawan yang cocok.</td></tr>`;
+  $("pgInfo").textContent=`Halaman ${page+1} dari ${fmt(pages)}`;$("pgPrev").disabled=page===0;$("pgNext").disabled=page>=pages-1;
+}
+
+/* ---------- REKOMENDASI ---------- */
+function renderReko(rows){
+  const tot=rows.length||1,ks=klienStats(rows).filter(k=>k.t>=30).sort((a,b)=>b.r/b.t-a.r/a.t);
+  const ak=rows.filter(r=>r.s===S_AKTIF),stale=ak.filter(r=>r.kf===1).length,soon=ak.filter(r=>r.kf>=2&&r.kf<=4).length;
+  const young=rows.filter(r=>r.a<30).length,fem=rows.filter(r=>r.g).length;const a1=new Date(TODAY);a1.setFullYear(a1.getFullYear()-1);const recent=rows.filter(r=>r.dt>a1).length;
+  const res=rows.filter(r=>r.s===S_RES),early=res.filter(r=>r.mk<1).length;const C=[];
+  if(ks.length)C.push(["#E0393E","Retensi",`Resign tertinggi: ${short(D.k[ks[0].k])}`,pc(ks[0].r,ks[0].t,1)+"%",`${fmt(ks[0].r)} dari ${fmt(ks[0].t)} karyawan resign. Rata-rata keseluruhan ${pc(res.length,tot,1)}%.`,"Lakukan exit interview serta cek beban kerja dan upah di klien ini."]);
+  C.push(["#F07B24","Data kontrak","Kontrak aktif lewat tanggal berakhir",fmt(stale),`${pc(stale,ak.length||1,1)}% karyawan aktif. ${fmt(soon)} kontrak lain berakhir ≤ 90 hari.`,"Perbarui tanggal kontrak di Google Sheets agar pengingat kontrak akurat."]);
+  C.push(["#1E6FE0","Rekrutmen","Karyawan baru 12 bulan terakhir",fmt(recent),`${pc(recent,tot,1)}% dari karyawan pada filter ini.`,"Standarkan onboarding dan evaluasi di 3 bulan pertama."]);
+  C.push(["#11A88F","Komposisi usia","Didominasi usia di bawah 30 tahun",pc(young,tot,1)+"%",`${fmt(young)} karyawan berusia < 30 tahun.`,"Siapkan jenjang karier dan pelatihan keterampilan."]);
+  C.push(["#E0559B","Gender","Proporsi karyawan perempuan",pc(fem,tot,1)+"%",`${fmt(fem)} perempuan dan ${fmt(tot-fem)} laki-laki.`,"Pastikan fasilitas dan kebijakan cuti ramah karyawan perempuan."]);
+  if(res.length)C.push(["#6A5AE0","Resign dini","Resign sebelum 1 tahun bekerja",pc(early,res.length,1)+"%",`${fmt(early)} dari ${fmt(res.length)} karyawan resign.`,"Perkuat seleksi dan pendampingan di tahun pertama."]);
+  const slots=[[249,463,455,225],[718,463,511,225],[1243,463,409,225],[249,700,503,220],[765,700,424,220],[1202,700,450,220]];
+  $("recoBody").innerHTML=C.slice(0,6).map((c,i)=>{const s=slots[i];return `<article class="card rc" style="--c:${c[0]};left:${s[0]}px;top:${s[1]}px;width:${s[2]}px;height:${s[3]}px"><div class="k">${c[1]}</div><h3>${esc(c[2])}</h3><div class="big num">${c[3]}</div><p>${esc(c[4])}</p><div class="act">${esc(c[5])}</div></article>`}).join("");
+}
+
+/* ---------- alur ---------- */
+const VIEWS=["beranda","analisis","klien","banding","data","reko"];
+function render(){
+  const rows=filtered(false);renderKPI(rows);const v=st.view;
+  ({beranda:()=>renderBeranda(rows),analisis:()=>renderAnalisis(rows),klien:renderKlien,banding:renderCmp,data:renderData,reko:()=>renderReko(rows)})[v]();
+  const kc=$("klienChip");if(st.klien>=0){kc.style.display="flex";$("klienChipT").textContent="Klien: "+short(D.k[st.klien]);}else kc.style.display="none";
+  $("foot").textContent=`Sumber: ${M.sumber} · ${fmt(R.length)} data · diperbarui otomatis`;
+}
+function setPer(v){st.per=v;store.set("per",v);$("perTop").value=v;$("perCard").value=v;page=0;kPage=0;render();}
+function setKlien(k){st.klien=k;store.set("klien",k);page=0;render();}
+function go(v){if(!VIEWS.includes(v))v="beranda";st.view=v;store.set("view",v);document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("on",b.dataset.v===v));VIEWS.forEach(x=>$("v-"+x).hidden=x!==v);render();}
+$("perTop").onchange=e=>setPer(e.target.value);$("perCard").onchange=e=>setPer(e.target.value);
+$("klienChip").onclick=()=>setKlien(-1);
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>go(b.dataset.v));
+$("kSearch").oninput=()=>{kPage=0;renderKlien()};$("kPrev").onclick=()=>{kPage--;renderKlien()};$("kNext").onclick=()=>{kPage++;renderKlien()};
+$("dSearch").oninput=()=>{page=0;renderData()};$("dStat").onchange=()=>{page=0;renderData()};$("pgPrev").onclick=()=>{page--;renderData()};$("pgNext").onclick=()=>{page++;renderData()};
+$("cmpA").onchange=renderCmp;$("cmpB").onchange=renderCmp;
+const tip=$("tip");
+document.addEventListener("mousemove",e=>{const t=e.target.closest("[data-tip]");if(!t){tip.classList.remove("on");return}tip.innerHTML=t.dataset.tip;tip.classList.add("on");
+  const w=tip.offsetWidth,h=tip.offsetHeight;tip.style.left=Math.min(innerWidth-w-8,e.clientX+14)+"px";tip.style.top=Math.max(8,e.clientY-h-12)+"px"});
+$("perTop").value=st.per;$("perCard").value=st.per;fillCmp();go(st.view);
+</script>
+</body></html>
