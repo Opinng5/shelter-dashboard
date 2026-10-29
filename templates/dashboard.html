@@ -17,7 +17,8 @@ button,select,input{font:inherit;color:inherit}
 .num{font-variant-numeric:tabular-nums}
 /* hero */
 #hero{left:0;top:0;width:1672px;height:340px;background:url("{{HERO}}") 0 0/1672px 340px no-repeat}
-.logo{position:absolute;filter:drop-shadow(0 2px 4px rgba(11,31,77,.15))}
+#logos{left:24px;top:44px;height:76px;display:flex;align-items:center;gap:16px}
+#logos img{height:74px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(11,31,77,.15))}
 #title{left:33px;top:147px;margin:0;font:800 52px/58px var(--h);letter-spacing:-1.6px;color:var(--navy);white-space:nowrap}
 #title .a{background:linear-gradient(180deg,#2C8BF0,#1659D0);-webkit-background-clip:text;background-clip:text;color:transparent}
 #title .b{background:linear-gradient(180deg,#F6B22A,#E58D05);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -162,9 +163,11 @@ tr.click{cursor:pointer}
 <div id="wrap"><div id="cv">
   <!-- HERO -->
   <div class="abs" id="hero" role="img" aria-label="Gedung SHELTER dan tim karyawan"></div>
-  <img class="logo" src="{{LOGO_TUTWURI}}" alt="Logo Tut Wuri Handayani" style="left:22px;top:48px;width:73px;height:73px;object-fit:contain">
-  <img class="logo" src="{{LOGO_UPN}}" alt="Logo UPN Veteran Jawa Timur" style="left:108px;top:46px;width:77px;height:76px;object-fit:contain">
-  <img class="logo" src="{{LOGO_BLU}}" alt="Logo BLU Speed" style="left:199px;top:41px;width:80px;height:80px;object-fit:contain">
+  <div class="abs" id="logos">
+    <img src="{{LOGO_TUTWURI}}" alt="Logo Tut Wuri Handayani">
+    <img src="{{LOGO_UPN}}" alt="Logo UPN Veteran Jawa Timur">
+    <img src="{{LOGO_BLU}}" alt="Logo BLU Speed">
+  </div>
   <h1 class="abs" id="title">Dashboard<br><span class="a">Analisis</span> <span class="b">Karyawan</span></h1>
   <div class="abs" id="subtitle">Data Karyawan PT Shelter Indonesia Gemilang</div>
   <div class="obar" style="left:38px;top:307px;width:50px"></div>
