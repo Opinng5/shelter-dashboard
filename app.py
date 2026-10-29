@@ -42,6 +42,9 @@ st.markdown(
       [data-testid="stAppViewContainer"], .stApp {background:#EEF6FD;}
       [data-testid="stVerticalBlock"] {gap:0 !important;}
       iframe {display:block; border:0; width:100%;}
+        /* Matikan efek pudar (stale) saat data sedang diperbarui otomatis */
+      [data-stale="true"], .stale-element, [data-testid="stElementContainer"][data-stale="true"]
+        {opacity:1 !important; filter:none !important; transition:none !important;}
     </style>
     """,
     unsafe_allow_html=True,
