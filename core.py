@@ -167,7 +167,8 @@ _IMG_CACHE: dict[str, str] = {}
 def build_html(data: dict, today: dt.date, sumber: str) -> str:
     if not _IMG_CACHE:
         for key, f in {"HERO": "hero.jpg", "LOGO_TUTWURI": "logo_tutwuri.png", "LOGO_UPN": "logo_upn.png",
-                       "LOGO_BLU": "logo_blu.png", "GEDUNG_UPN": "gedung_upn.jpg"}.items():
+                       "LOGO_BLU": "logo_blu.png", "GEDUNG_UPN": "gedung_upn.jpg",
+                       "LOGO_SHELTER": "logo_shelter.jpg"}.items():
             _IMG_CACHE[key] = _uri(f)
     html = TEMPLATE.read_text(encoding="utf-8")
     for k, v in _IMG_CACHE.items():
